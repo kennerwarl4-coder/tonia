@@ -1,0 +1,48 @@
+# ============================
+# Variáveis de Ambiente e Segredos — NUNCA versionar!
+# ============================
+.env
+.env.local
+.env.production
+.env.*.local
+
+# ============================
+# Dependências Node.js
+# ============================
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ============================
+# Build / Output Vercel
+# ============================
+.vercel/
+.next/
+dist/
+build/
+out/
+
+# ============================
+# Sistema Operacional
+# ============================
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ============================
+# IDEs e Editores
+# ============================
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# ============================
+# Logs e temporários
+# ============================
+*.log
+*.tmp
+*.temp
