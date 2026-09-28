@@ -110,12 +110,6 @@ async function initCheckout() {
   setupMobileSummary();
   setupPixCopy();
 
-  // Verificar se há modo de teste
-  const testBox = $("#testModeBox");
-  if (testBox) {
-    testBox.hidden = false;
-    $("#btnSimularPagamento")?.addEventListener("click", simularPagamento);
-  }
 }
 
 /* =========================================================
