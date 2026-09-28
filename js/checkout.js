@@ -116,18 +116,20 @@ async function initCheckout() {
    2. Meta Pixel & Rastreamento
    ========================================================= */
 function dispararPixelInitiateCheckout() {
+  // Guard: dispara no máximo 1x por sessão para evitar duplicatas
+  if (!window.fbq || sessionStorage.getItem("tonia_fbq_initcheckout")) return;
+  sessionStorage.setItem("tonia_fbq_initcheckout", "1");
+
   const kitInfo = checkoutState.catalogo.kits[checkoutState.kit] || checkoutState.catalogo.kits.unidade;
   const valor = kitInfo.preco / 100;
 
-  if (window.fbq) {
-    window.fbq("track", "InitiateCheckout", {
-      content_ids: [checkoutState.kit],
-      content_name: kitInfo.nome,
-      num_items: kitInfo.unidades || 1,
-      value: valor,
-      currency: "BRL"
-    });
-  }
+  window.fbq("track", "InitiateCheckout", {
+    content_ids: [checkoutState.kit],
+    content_name: kitInfo.nome,
+    num_items: kitInfo.unidades || 1,
+    value: valor,
+    currency: "BRL"
+  });
 }
 
 function dispararPixelAddPaymentInfo(totalCentavos) {

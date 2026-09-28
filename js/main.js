@@ -397,18 +397,8 @@ function comprar() {
 
     const precoTotal = state.kit === "dupla" ? 117.90 : CONFIG.preco;
 
-    let rastreou = false;
-    if (window.fbq && !sessionStorage.getItem("tonia_fbq_checkout")) {
-      sessionStorage.setItem("tonia_fbq_checkout", "1");
-      window.fbq("track", "InitiateCheckout", {
-        content_ids: [state.kit],
-        content_name: state.kit === "dupla" ? "Kit Dupla (2 Aparelhos)" : CONFIG.produto,
-        num_items: state.kit === "dupla" ? 2 : 1,
-        value: precoTotal,
-        currency: "BRL"
-      });
-      rastreou = true;
-    }
+    // InitiateCheckout é disparado pelo checkout.js ao carregar a página de checkout
+    const rastreou = false;
 
     if (window.gtag && CONFIG.ga4) {
       window.gtag("event", "begin_checkout", {
