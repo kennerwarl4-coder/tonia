@@ -33,7 +33,7 @@ const checkoutState = {
         descricao: "Despacho prioritário em até 24h úteis e entrega expressa com rastreio VIP.",
         preco: 1990,
         tipo: "frete",
-        img: "assets/entrega-express.png"
+        img: "assets/entrega-express.webp"
       }
     ],
     upsell: {
@@ -504,7 +504,7 @@ function renderOrderBumps() {
     const labelTexto = b.id === "prioritario"
       ? "Sim, quero receber mais rápido (+ R$ 19,90)"
       : `${b.nome} (+ ${fmt(b.preco / 100)})`;
-    const imgSrc = b.img || (b.id === "prioritario" ? "assets/entrega-express.png" : "");
+    const imgSrc = b.img || (b.id === "prioritario" ? "assets/entrega-express.webp" : "");
 
     return `
       <label class="bump-card ${isChecked ? 'is-selected' : ''}" data-bump-id="${b.id}">
