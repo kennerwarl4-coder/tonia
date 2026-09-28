@@ -781,6 +781,12 @@ function exibirTelaPix(data) {
   if (formWrap) formWrap.hidden = true;
   if (pixWrap) pixWrap.hidden = false;
 
+  // Esconder topo (título, stepper e resumo do pedido) para não distrair o cliente
+  const topHeader = $(".checkout-top-header");
+  const summaryWrap = $(".checkout-top-summary-wrap");
+  if (topHeader) topHeader.style.display = "none";
+  if (summaryWrap) summaryWrap.style.display = "none";
+
   // Atualizar valores
   const totalEl = $("#pixTotalVal");
   if (totalEl) totalEl.textContent = fmt(data.total / 100);
@@ -797,8 +803,8 @@ function exibirTelaPix(data) {
   // Iniciar polling de status a cada 5 segundos
   iniciarPollingStatus(data.id);
 
-  // Rolar suavemente para a tela do Pix
-  pixWrap?.scrollIntoView({ behavior: "smooth" });
+  // Rolar para o topo da página (tela do Pix)
+  window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
 function setupPixCopy() {
