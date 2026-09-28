@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Pedido Confirmado! · Loja Tônia</title>
+  <meta name="description" content="Seu pedido foi confirmado com sucesso. Informações de envio e rastreio.">
+  <meta name="theme-color" content="#E03562">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="css/style.css">
+
+  <style>
+    .thankyou-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 36px 24px;
+      max-width: 620px;
+      margin: 40px auto;
+      text-align: center;
+    }
+    .thankyou-badge {
+      width: 56px;
+      height: 56px;
+      background: var(--success-bg);
+      border: 1px solid var(--success);
+      color: var(--success);
+      display: grid;
+      place-items: center;
+      margin: 0 auto 16px;
+    }
+    .thankyou-title {
+      font-size: clamp(1.75rem, 1.4rem + 1.2vw, 2.25rem);
+      font-weight: 800;
+      color: var(--ink);
+      margin-bottom: 8px;
+    }
+    .thankyou-order-id {
+      display: inline-block;
+      background: var(--surface-alt);
+      border: 1px solid var(--border);
+      padding: 6px 14px;
+      font-size: 0.8125rem;
+      font-weight: 700;
+      color: var(--ink-soft);
+      margin-bottom: 24px;
+    }
+    .thankyou-box {
+      background: var(--surface-alt);
+      border: 1px solid var(--border);
+      padding: 18px;
+      text-align: left;
+      margin-bottom: 24px;
+      font-size: 0.875rem;
+    }
+    .thankyou-box strong {
+      color: var(--ink);
+    }
+    .thankyou-items {
+      margin: 12px 0;
+      padding-top: 12px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      font-size: 0.8125rem;
+    }
+    .thankyou-bonus {
+      background: var(--lilac-100);
+      border: 1px solid var(--accent-border);
+      padding: 20px;
+      margin-top: 24px;
+      text-align: center;
+    }
+    .thankyou-bonus h3 {
+      font-size: 1.0625rem;
+      font-weight: 800;
+      color: var(--ink);
+      margin-bottom: 6px;
+    }
+    .thankyou-bonus p {
+      font-size: 0.8125rem;
+      color: var(--ink-soft);
+      margin-bottom: 14px;
+    }
+  </style>
+</head>
+<body class="checkout-page">
+
+  <!-- SVG Icons -->
+  <svg xmlns="http://www.w3.org/2000/svg" hidden>
+    <symbol id="i-check-circle" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></symbol>
+    <symbol id="i-truck" viewBox="0 0 24 24"><path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2"/><path d="M15 18H9"/><path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.624l-3.48-4.35A1 1 0 0 0 17.52 8H14"/><circle cx="17" cy="18" r="2"/><circle cx="7" cy="18" r="2"/></symbol>
+  </svg>
+
+  <!-- Header Mínimo -->
+  <header class="checkout-header">
+    <div class="container checkout-header__inner">
+      <a href="index.html" class="logo" aria-label="Voltar para a página inicial">
+        <img src="assets/img/logo.webp" width="220" height="69" alt="Tônia">
+      </a>
+      <a href="index.html" class="btn btn--outline btn-sm">Voltar à Loja</a>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="thankyou-card card">
+      <div class="thankyou-badge">
+        <svg class="icon" width="32" height="32" aria-hidden="true"><use href="#i-check-circle"/></svg>
+      </div>
+
+      <h1 class="thankyou-title">Pedido confirmado! 🎉</h1>
+      <p style="font-size:0.9375rem;color:var(--ink-soft);margin-bottom:12px;">
+        Seu pagamento via Pix foi aprovado com sucesso e o pedido já está sendo preparado.
+      </p>
+
+      <div class="thankyou-order-id">
+        Número do Pedido: <strong id="orderIdText">Carregando...</strong>
+      </div>
+
+      <div class="thankyou-box">
+        <p><strong>Prazo estimado de entrega:</strong> <span id="deliveryTimeText">3 a 7 dias úteis</span></p>
+        <p style="margin-top:6px;color:var(--ink-soft);font-size:0.8125rem;">
+          Você vai receber o código de rastreio e as atualizações no seu <strong>WhatsApp</strong> e no seu <strong>e-mail</strong>.
+        </p>
+
+        <div class="thankyou-items" id="orderItemsBox">
+          <!-- Itens do pedido -->
+        </div>
+
+        <div style="display:flex;justify-content:space-between;font-weight:700;color:var(--ink);padding-top:8px;border-top:1px solid var(--border);">
+          <span>Total Pago no Pix:</span>
+          <span id="orderTotalText">R$ 67,90</span>
+        </div>
+      </div>
+
+      <!-- Bônus: Acesso ao Plano de 21 Dias -->
+      <div class="thankyou-bonus">
+        <h3>🎁 Resgate seu Plano de 21 Dias Grátis</h3>
+        <p>Acesse o cronograma exclusivo de 10 minutos por dia para acelerar a queima de gordura e firmeza muscular.</p>
+        <a href="index.html#plano" class="btn btn--primary btn-sm">Acessar Plano de Treino</a>
+      </div>
+
+    </div>
+  </main>
+
+  <script>
+    (function initThankyou() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const pedidoId = urlParams.get("id") || "tonia_" + Date.now();
+      
+      const orderIdEl = document.getElementById("orderIdText");
+      if (orderIdEl) orderIdEl.textContent = pedidoId;
+
+      let savedData = null;
+      try {
+        const raw = sessionStorage.getItem("tonia_ultimo_pedido");
+        if (raw) savedData = JSON.parse(raw);
+      } catch (e) {}
+
+      const totalCentavos = savedData?.total || 6790;
+      const totalReais = (totalCentavos / 100).toFixed(2);
+      const envioTipo = savedData?.envio || "padrao";
+
+      const totalEl = document.getElementById("orderTotalText");
+      if (totalEl) totalEl.textContent = "R$ " + totalReais.replace(".", ",");
+
+      const deliveryEl = document.getElementById("deliveryTimeText");
+      if (deliveryEl) {
+        deliveryEl.textContent = envioTipo === "prioritario" ? "1 a 3 dias úteis (Envio Prioritário Express)" : "3 a 7 dias úteis (Frete Grátis)";
+      }
+
+      const itemsBox = document.getElementById("orderItemsBox");
+      if (itemsBox && savedData?.itens) {
+        itemsBox.innerHTML = savedData.itens.map(it => `
+          <div style="display:flex;justify-content:space-between;color:var(--ink-soft);">
+            <span>${it.nome} ${it.quantidade > 1 ? '(' + it.quantidade + 'x)' : ''}</span>
+            <span>R$ ${(it.total / 100).toFixed(2).replace(".", ",")}</span>
+          </div>
+        `).join("");
+      }
+
+      // Meta Pixel Purchase com deduplicação via eventID
+      if (window.fbq) {
+        window.fbq('track', 'Purchase', {
+          value: Number(totalReais),
+          currency: 'BRL',
+          content_type: 'product'
+        }, { eventID: pedidoId });
+      }
+    })();
+  </script>
+</body>
+</html>

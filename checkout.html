@@ -1,0 +1,412 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Finalizar Compra Segura · Tônia</title>
+  <meta name="description" content="Checkout transparente seguro via Pix da Loja Tônia. Envio imediato e garantia de 30 dias.">
+  <meta name="theme-color" content="#E03562">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/checkout.js" defer></script>
+</head>
+<body class="checkout-page">
+
+  <!-- SVG Icons -->
+  <svg xmlns="http://www.w3.org/2000/svg" hidden>
+    <symbol id="i-lock" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+    <symbol id="i-chevron" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+    <symbol id="i-truck" viewBox="0 0 24 24"><path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2"/><path d="M15 18H9"/><path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.624l-3.48-4.35A1 1 0 0 0 17.52 8H14"/><circle cx="17" cy="18" r="2"/><circle cx="7" cy="18" r="2"/></symbol>
+    <symbol id="i-copy" viewBox="0 0 24 24"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></symbol>
+    <symbol id="i-cart" viewBox="0 0 24 24"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></symbol>
+  </svg>
+
+  <!-- Header Mínimo Sem Distrações -->
+  <header class="checkout-header">
+    <div class="container checkout-header__inner">
+      <a href="index.html" class="logo" aria-label="Voltar para a página inicial">
+        <img src="assets/img/logo.webp" width="180" height="56" alt="Tônia">
+      </a>
+      <div class="checkout-secure-pill">
+        <svg class="icon" width="16" height="16" aria-hidden="true"><use href="#i-shield"/></svg>
+        <span>Ambiente seguro</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="container checkout-container">
+
+    <!-- Topo da Página: Título + Stepper Visual de Etapas -->
+    <div class="checkout-top-header">
+      <h1 class="checkout-main-title">Finalizar compra</h1>
+
+      <div class="checkout-stepper" role="progressbar" aria-label="Progresso do pedido">
+        <div class="stepper-item is-active" id="stepIndicator1">
+          <div class="stepper-bubble">1</div>
+          <span class="stepper-label">Identificação</span>
+        </div>
+        <div class="stepper-line" id="stepperLine1"></div>
+        <div class="stepper-item" id="stepIndicator2">
+          <div class="stepper-bubble">2</div>
+          <span class="stepper-label">Entrega</span>
+        </div>
+        <div class="stepper-line" id="stepperLine2"></div>
+        <div class="stepper-item" id="stepIndicator3">
+          <div class="stepper-bubble">3</div>
+          <span class="stepper-label">Pagamento</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Resumo do Pedido no Topo (Aberto por padrão com opção de fechar) -->
+    <section class="checkout-top-summary-wrap">
+      <div class="summary-card card is-open" id="checkoutSummaryCard">
+        
+        <!-- Cabeçalho do Resumo com Botão de Toggle -->
+        <div class="summary-toggle-header" id="summaryToggleBtn" role="button" tabindex="0" aria-expanded="true" aria-controls="summaryDetailsBody">
+          <div class="summary-toggle-left">
+            <svg class="icon summary-cart-icon" width="20" height="20" aria-hidden="true"><use href="#i-cart"/></svg>
+            <span class="summary-title-text">Resumo do pedido</span>
+            <svg class="icon summary-chevron" width="16" height="16" aria-hidden="true"><use href="#i-chevron"/></svg>
+          </div>
+          <strong class="summary-header-total" id="summaryHeaderTotal">R$ 67,90</strong>
+        </div>
+
+        <!-- Corpo Detalhado do Resumo (Visível por padrão) -->
+        <div class="summary-details-body" id="summaryDetailsBody">
+          
+          <!-- Lista de Produtos com Miniatura -->
+          <div class="summary-items" id="summaryItemsList">
+            <div class="summary-item">
+              <div class="summary-thumb-box">
+                <img id="summaryProdImg" src="assets/img/produto-lilas.webp" alt="Aparelho Tônia">
+              </div>
+              <div class="summary-item__info">
+                <strong class="summary-item__name" id="summaryProdTitle">1 Aparelho Tônia</strong>
+                <span class="summary-item__qty" id="summaryProdQty">Qtd: 1</span>
+              </div>
+              <span class="summary-item__price" id="summaryProdPrice">R$ 67,90</span>
+            </div>
+          </div>
+
+          <!-- Linhas de Subtotal e Frete -->
+          <div class="summary-rows">
+            <div class="summary-row">
+              <span>Subtotal</span>
+              <span id="summarySubtotal">R$ 67,90</span>
+            </div>
+            <div class="summary-row" id="summaryFreteRow">
+              <span>Frete</span>
+              <span id="summaryFrete" class="text-success">Grátis</span>
+            </div>
+            <div class="summary-row summary-row--total">
+              <span class="total-label">Total</span>
+              <span class="total-value" id="summaryTotal">R$ 67,90</span>
+            </div>
+            <p class="pix-applied-tag" id="summaryPixNote">
+              Pix com aprovação imediata
+            </p>
+          </div>
+
+          <!-- Selo de Compra Segura no rodapé do resumo -->
+          <div class="summary-safe-badge">
+            <svg class="icon" width="16" height="16" aria-hidden="true"><use href="#i-shield"/></svg>
+            <span>Compra 100% segura</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Layout das Etapas do Formulário -->
+    <div class="checkout-layout">
+
+      <!-- Coluna Principal: Formulário Acordeão ou Tela do Pix -->
+      <section class="checkout-main-col">
+
+        <!-- 1. FORMULÁRIO DE CHECKOUT EM ACORDEÃO -->
+        <div id="checkoutFormWrap">
+          <div class="checkout-steps">
+
+            <!-- ETAPA 1: IDENTIFICAÇÃO -->
+            <div class="step-card is-active" id="step1">
+              <div class="step-card__header">
+                <div class="step-title-box">
+                  <span class="step-badge">1</span>
+                  <h2 class="step-title">Identificação</h2>
+                </div>
+                <button type="button" class="step-edit-btn" id="step1EditBtn" hidden>Alterar</button>
+              </div>
+              <div class="step-card__body">
+                <form id="formStep1" novalidate>
+                  <div class="form-field" id="fieldNome">
+                    <label for="inputNome">Nome completo <span class="req">*</span></label>
+                    <input type="text" id="inputNome" class="admin-input" placeholder="Seu nome completo" required autocomplete="name">
+                    <span class="input-error" id="errorNome">Por favor, digite seu nome completo.</span>
+                  </div>
+
+                  <div class="form-field" id="fieldEmail">
+                    <label for="inputEmail">E-mail <span class="req">*</span></label>
+                    <input type="email" id="inputEmail" class="admin-input" placeholder="voce@email.com" required autocomplete="email" inputmode="email">
+                    <span class="input-error" id="errorEmail">Digite um e-mail válido.</span>
+                  </div>
+
+                  <div class="form-row">
+                    <div class="form-field" id="fieldWhatsapp">
+                      <label for="inputWhatsapp">WhatsApp <span class="req">*</span></label>
+                      <input type="tel" id="inputWhatsapp" class="admin-input" placeholder="(00) 00000-0000" required autocomplete="tel" inputmode="numeric" maxlength="15">
+                      <span class="field-help">Para enviarmos o rastreio.</span>
+                      <span class="input-error" id="errorWhatsapp">Informe um WhatsApp válido com DDD.</span>
+                    </div>
+
+                    <div class="form-field" id="fieldCpf">
+                      <label for="inputCpf">CPF <span class="req">*</span></label>
+                      <input type="tel" id="inputCpf" class="admin-input" placeholder="000.000.000-00" required inputmode="numeric" maxlength="14">
+                      <span class="input-error" id="errorCpf">Digite um CPF válido.</span>
+                    </div>
+                  </div>
+
+                  <div class="step-actions">
+                    <button type="submit" class="btn btn--primary btn--grow" id="btnStep1">Continuar para Entrega</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+
+            <!-- ETAPA 2: ENTREGA -->
+            <div class="step-card" id="step2">
+              <div class="step-card__header">
+                <div class="step-title-box">
+                  <span class="step-badge">2</span>
+                  <h2 class="step-title">Endereço de entrega</h2>
+                </div>
+                <button type="button" class="step-edit-btn" id="step2EditBtn" hidden>Alterar</button>
+              </div>
+              <div class="step-card__body">
+                <form id="formStep2" novalidate>
+                  <div class="form-row">
+                    <div class="form-field" id="fieldCep">
+                      <label for="inputCep">CEP <span class="req">*</span></label>
+                      <input type="tel" id="inputCep" class="admin-input" placeholder="00000-000" required inputmode="numeric" maxlength="9">
+                      <span class="field-help" id="cepHelp">Preenchimento automático do endereço.</span>
+                      <span class="input-error" id="errorCep">CEP inválido ou não encontrado.</span>
+                    </div>
+
+                    <div class="form-field">
+                      <label>Prazo estimado de entrega</label>
+                      <div class="admin-input" style="background:var(--surface-alt);display:flex;align-items:center;font-size:0.8125rem;font-weight:600;color:var(--ink);">
+                        <svg class="icon icon--success" width="16" height="16" style="margin-right:6px;"><use href="#i-truck"/></svg>
+                        <span>Frete Grátis · 3 a 7 dias úteis</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="form-row">
+                    <div class="form-field" id="fieldRua" style="grid-column: span 1;">
+                      <label for="inputRua">Rua / Avenida <span class="req">*</span></label>
+                      <input type="text" id="inputRua" class="admin-input" placeholder="Logradouro" required>
+                      <span class="input-error" id="errorRua">Informe a rua/avenida.</span>
+                    </div>
+
+                    <div class="form-field" id="fieldNumero">
+                      <label for="inputNumero">Número <span class="req">*</span></label>
+                      <input type="text" id="inputNumero" class="admin-input" placeholder="123" required>
+                      <span class="input-error" id="errorNumero">Informe o número.</span>
+                    </div>
+                  </div>
+
+                  <div class="form-row">
+                    <div class="form-field" id="fieldComplemento">
+                      <label for="inputComplemento">Complemento (opcional)</label>
+                      <input type="text" id="inputComplemento" class="admin-input" placeholder="Apto 42, Bloco B...">
+                    </div>
+
+                    <div class="form-field" id="fieldBairro">
+                      <label for="inputBairro">Bairro <span class="req">*</span></label>
+                      <input type="text" id="inputBairro" class="admin-input" placeholder="Bairro" required>
+                      <span class="input-error" id="errorBairro">Informe o bairro.</span>
+                    </div>
+                  </div>
+
+                  <div class="form-row">
+                    <div class="form-field" id="fieldCidade">
+                      <label for="inputCidade">Cidade <span class="req">*</span></label>
+                      <input type="text" id="inputCidade" class="admin-input" placeholder="Cidade" required>
+                      <span class="input-error" id="errorCidade">Informe a cidade.</span>
+                    </div>
+
+                    <div class="form-field" id="fieldUf">
+                      <label for="inputUf">Estado (UF) <span class="req">*</span></label>
+                      <input type="text" id="inputUf" class="admin-input" placeholder="SP" maxlength="2" required style="text-transform:uppercase;">
+                      <span class="input-error" id="errorUf">UF inválida.</span>
+                    </div>
+                  </div>
+
+                  <div class="step-actions">
+                    <button type="submit" class="btn btn--primary btn--grow" id="btnStep2">Continuar para Pagamento</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+
+            <!-- ETAPA 3: PAGAMENTO -->
+            <div class="step-card" id="step3">
+              <div class="step-card__header">
+                <div class="step-title-box">
+                  <span class="step-badge">3</span>
+                  <h2 class="step-title">Pagamento</h2>
+                </div>
+              </div>
+              <div class="step-card__body">
+                <form id="formStep3" novalidate>
+                  
+                  <!-- Métodos de Pagamento -->
+                  <div class="payment-methods-grid">
+                    <!-- Opção 1: Pix (Ativo) -->
+                    <label class="payment-card is-active" for="payMethodPix">
+                      <input type="radio" name="payment_method" id="payMethodPix" value="pix" checked>
+                      <div class="payment-card__icon">
+                        <img src="assets/logo-pix.webp" alt="Pix" class="pix-logo-img">
+                      </div>
+                      <div class="payment-card__info">
+                        <strong class="payment-card__title">Pagamento via Pix</strong>
+                        <span class="payment-card__sub">Aprovação imediata · 5% de desconto</span>
+                      </div>
+                    </label>
+
+                    <!-- Opção 2: Cartão de Crédito (Em breve) -->
+                    <div class="payment-card is-disabled" aria-disabled="true">
+                      <input type="radio" name="payment_method" id="payMethodCard" value="cartao" disabled>
+                      <div class="payment-card__icon">
+                        <svg class="icon icon-cc" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                          <rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/>
+                        </svg>
+                      </div>
+                      <div class="payment-card__info">
+                        <strong class="payment-card__title">Cartão de crédito</strong>
+                        <span class="payment-card__sub">Em breve</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Order Bumps Dinâmicos (Abaixo dos cards de pagamento) -->
+                  <div class="bumps-section" id="bumpsContainer">
+                    <!-- Gerado via JS a partir do catálogo -->
+                  </div>
+
+                  <!-- Caixa de Termos Obrigatória -->
+                  <label class="terms-agreement">
+                    <input type="checkbox" id="termsCheck" required checked>
+                    <span>Li e concordo com os <a href="index.html#termos" target="_blank">Termos de uso</a> e a <a href="index.html#privacidade" target="_blank">Política de privacidade</a>.</span>
+                  </label>
+                  <span class="input-error" id="errorTerms" style="margin-bottom:12px;">Você precisa aceitar os termos para prosseguir.</span>
+
+                  <button type="submit" class="btn btn--primary btn--grow" id="btnFinalizar" style="font-size:1.0625rem;padding:16px;">
+                    Finalizar e gerar Pix
+                  </button>
+                </form>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- 2. TELA DO PIX (Aparece após finalizar) -->
+        <div id="pixScreenWrap" hidden>
+          <div class="pix-screen card">
+            <span class="pix-total-badge">Valor Total a Pagar</span>
+            <div class="pix-total-val" id="pixTotalVal">R$ 67,90</div>
+
+            <div class="pix-qr-box">
+              <img id="pixQrImg" src="" alt="QR Code Pix">
+            </div>
+
+            <div class="pix-copy-box">
+              <input type="text" id="pixCopiaInput" class="admin-input pix-copy-input" readonly>
+              <button type="button" class="btn btn--primary" id="btnCopiarPix">
+                <svg class="icon" width="16" height="16" aria-hidden="true"><use href="#i-copy"/></svg>
+                <span id="btnCopiarLabel">Copiar código Pix</span>
+              </button>
+            </div>
+
+            <div class="pix-steps-list">
+              <strong>Como pagar pelo celular:</strong>
+              <ol>
+                <li>Abra o aplicativo do seu banco</li>
+                <li>Escolha a opção <strong>Pix Copia e Cola</strong></li>
+                <li>Cole o código copiado e confirme o pagamento</li>
+              </ol>
+            </div>
+
+            <div class="pix-timer" id="pixTimerBox">
+              Expira em: <span id="pixTimer">29:59</span>
+            </div>
+
+            <div class="pix-pulse-text">
+              <span class="pulse-dot"></span>
+              <span>Assim que o pagamento cair, esta tela atualiza sozinha.</span>
+            </div>
+
+            <button type="button" class="btn btn--outline btn-sm" id="btnGerarNovoPix" hidden style="margin-top:16px;">
+              Gerar novo código Pix
+            </button>
+
+            <!-- Modo de Teste: Simulação Local de Pagamento -->
+            <div class="simular-pagamento-box" id="testModeBox" hidden>
+              <p style="font-size:0.75rem;color:var(--accent);font-weight:700;margin-bottom:8px;">
+                🛠️ MODO DE TESTE ATIVO
+              </p>
+              <button type="button" class="btn btn--outline btn-sm" id="btnSimularPagamento" style="border-color:var(--accent);color:var(--accent);width:100%;">
+                ⚡ Simular Pagamento Aprovado
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+    </div>
+  </main>
+
+  <!-- MODAL DE UPSELL (Tela cheia sobreposta) -->
+  <div class="upsell-modal" id="upsellModal" hidden role="dialog" aria-modal="true" aria-labelledby="upsellTitle">
+    <div class="upsell-card">
+      <div class="upsell-progress">Pedido quase pronto ●●●○</div>
+      <h2 class="upsell-title" id="upsellTitle">Espera! Leve a 2ª unidade em outra cor por R$ 39,90</h2>
+      <p class="upsell-text" id="upsellText">
+        Uma pra você e outra pra presentear, no mesmo pacote e sem frete extra. Essa oferta aparece só agora.
+      </p>
+
+      <div class="upsell-media">
+        <img id="upsellImg" src="assets/img/produto-rosa.webp" alt="Segunda unidade">
+      </div>
+
+      <!-- Seletor de Cor do Upsell -->
+      <div class="colors" style="margin-bottom:14px;" id="upsellColorBox">
+        <legend class="colors__label" style="text-align:center;">Escolha a cor da 2ª unidade: <strong id="upsellColorName">Rosa</strong></legend>
+        <div class="colors__list" id="upsellColorList" style="justify-content:center;"></div>
+      </div>
+
+      <div class="upsell-price-box">
+        <div class="upsell-price" id="upsellPriceVal">+ R$ 39,90</div>
+        <span class="upsell-price-sub">sai por R$ 53,90 cada no total</span>
+      </div>
+
+      <div class="upsell-actions">
+        <button type="button" class="btn btn--primary btn--grow" id="btnUpsellAccept" style="width:100%;font-size:1rem;padding:14px;">
+          Sim, adicionar ao meu pedido
+        </button>
+        <button type="button" class="upsell-decline" id="btnUpsellDecline">
+          Não, obrigada, quero só 1
+        </button>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

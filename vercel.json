@@ -1,0 +1,19 @@
+{
+  "version": 2,
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "routes": [
+    {
+      "src": "^/api/(.*)",
+      "dest": "/api/$1"
+    },
+    {
+      "src": "^/checkout$",
+      "dest": "/checkout.html"
+    },
+    {
+      "src": "^/obrigado$",
+      "dest": "/obrigado.html"
+    }
+  ]
+}
