@@ -398,7 +398,8 @@ function comprar() {
     const precoTotal = state.kit === "dupla" ? 117.90 : CONFIG.preco;
 
     let rastreou = false;
-    if (window.fbq) {
+    if (window.fbq && !sessionStorage.getItem("tonia_fbq_checkout")) {
+      sessionStorage.setItem("tonia_fbq_checkout", "1");
       window.fbq("track", "InitiateCheckout", {
         content_ids: [state.kit],
         content_name: state.kit === "dupla" ? "Kit Dupla (2 Aparelhos)" : CONFIG.produto,
